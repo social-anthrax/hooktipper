@@ -12,13 +12,6 @@ Button.relative_width = 1
 envs: dict[str, str] = {}
 
 
-DONATIONS = [
-    (1, "https://donate.stripe.com/test_fZe01z2PrbfjeuQeUU"),
-    (3, "https://buy.stripe.com/test_6oEeWt2PrervfyUcMN"),
-    (5, "https://buy.stripe.com/test_14k5lT75H0AF5Yk7su"),
-]
-
-
 def open_payment_page(url: str, _: Button):
     webbrowser.open_new(url)
 

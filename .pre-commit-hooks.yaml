@@ -3,4 +3,10 @@
   language: "python"
   entry: "python3 ./hooktipper/main.py"
   always_run: true
+  verbose: true
   require_serial: true
+  args:
+    - 1=https://donate.stripe.com/test_fZe01z2PrbfjeuQeUU
+    - 3=https://buy.stripe.com/test_6oEeWt2PrervfyUcMN
+    - 5=https://buy.stripe.com/test_14k5lT75H0AF5Yk7su
+    - custom=https://buy.stripe.com/test_28o29HahTdnrfyUaEH
