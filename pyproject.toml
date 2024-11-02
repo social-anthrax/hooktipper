@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "hooktipper"
+version = "0.1.0"
+description = ""
+authors = ["Artemis Livingstone <ar.d.livingstone@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytermgui = "^7.7.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.0.1"
+ruff = "^0.7.2"
+ipython = "^8.29.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff.lint]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "C4",
+    # "DTZ",
+    "ICN",
+    "G",
+    "PIE",
+    "PYI",
+    "RUF",
+    "PL",
+    "I",
+    "N",
+]
