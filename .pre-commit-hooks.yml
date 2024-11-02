@@ -1,0 +1,6 @@
+- id: "hooktipper"
+  name: "hooktipper"
+  language: "python"
+  entry: "python3 ./hooktipper/main.py"
+  always_run: true
+  require_serial: true
