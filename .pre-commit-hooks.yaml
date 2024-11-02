@@ -1,10 +1,9 @@
 - id: "hooktipper"
   name: "hooktipper"
   language: "python"
-  entry: "./exec.sh"
+  entry: "run_hook_script"
   pass_filenames: false
   always_run: true
-  verbose: true
   require_serial: true
   args:
     - 1=https://donate.stripe.com/test_fZe01z2PrbfjeuQeUU

@@ -5,6 +5,10 @@ description = ""
 authors = ["Artemis Livingstone <ar.d.livingstone@gmail.com>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+hooktipper = 'hooktipper.main:main'
+run_hook_script = 'hooktipper.main:run_hook_script'
+
 [tool.poetry.dependencies]
 python = "^3.11"
 pytermgui = "^7.7.2"

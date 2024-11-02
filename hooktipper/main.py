@@ -1,3 +1,5 @@
+import os
+import pathlib
 import sys
 import webbrowser
 from functools import partial
@@ -9,7 +11,6 @@ from pytermgui import Button, Container, Splitter, Window, WindowManager, palett
 palette.regenerate(primary="#87cefa")
 
 Button.relative_width = 1
-envs: dict[str, str] = {}
 
 
 def open_payment_page(url: str, _: Button):
@@ -17,7 +18,15 @@ def open_payment_page(url: str, _: Button):
     sys.exit(0)
 
 
-if __name__ == "__main__":
+def run_hook_script():
+    """
+    This is necessary as otherwise we cannot read and write to /dev/tty, so we use this as a cursed entry point into exec.sh, which then will enter into main.sh
+    """
+    exec_file_path = pathlib.Path(__file__).resolve().parent / "exec.sh"
+    os.system(f"{exec_file_path} {' '.join(sys.argv[1:])}")
+
+
+def main():
     # Parse the amounts and donation URL
     donations = {
         a.removeprefix("--"): v for a, v in (x.split("=") for x in sys.argv[1:])
@@ -29,35 +38,36 @@ if __name__ == "__main__":
         print("No Custom Tip amount specified", file=sys.stderr)
         sys.exit(1)
 
-    with open("/dev/tty", "r") as tty:
-        sys.stdin = tty
-
-        # Load the UI
-        with WindowManager() as manager:
-            container = Container(
-                "[bold] Would you like to leave a tip?",
-                "",
-                Splitter(
-                    *(
-                        Button(
-                            f"${amount}",
-                            onclick=partial(open_payment_page, payment_url),
-                        )
-                        for amount, payment_url in donations.items()
+    # Load the UI
+    with WindowManager() as manager:
+        container = Container(
+            "[bold] Would you like to leave a tip?",
+            "",
+            Splitter(
+                *(
+                    Button(
+                        f"${amount}",
+                        onclick=partial(open_payment_page, payment_url),
                     )
+                    for amount, payment_url in donations.items()
+                )
+            ),
+            "",
+            Button(
+                "Custom Tip Amount",
+                partial(
+                    open_payment_page,
+                    custom_url,
                 ),
-                "",
-                Button(
-                    "Custom Tip Amount",
-                    partial(
-                        open_payment_page,
-                        custom_url,
-                    ),
-                    centered=True,
-                ),
-                "",
-                Button("Skip", onclick=lambda _: sys.exit(0)),
-            )
-            window = Window(container).set_title("Tip").center()
+                centered=True,
+            ),
+            "",
+            Button("Skip", onclick=lambda _: sys.exit(0)),
+        )
+        window = Window(container).set_title("Tip").center()
 
-            manager.add(window)
+        manager.add(window)
+
+
+if __name__ == "__main__":
+    main()
