@@ -20,7 +20,7 @@ def open_payment_page(url: str, _: Button):
 
 def run_hook_script():
     """
-    This is necessary as otherwise we cannot read and write to /dev/tty, so we use this as a cursed entry point into exec.sh, which then will enter into main.sh
+    This is necessary as otherwise we cannot read and write to /dev/tty, so we use this as a cursed entry point into exec.sh, which then will enter into main
     """
     exec_file_path = pathlib.Path(__file__).resolve().parent / "exec.sh"
     os.system(f"{exec_file_path} {' '.join(sys.argv[1:])}")
