@@ -1,7 +1,8 @@
 - id: "hooktipper"
   name: "hooktipper"
   language: "python"
-  entry: "python3 ./hooktipper/main.py"
+  entry: "./exec.sh"
+  pass_filenames: false
   always_run: true
   verbose: true
   require_serial: true
